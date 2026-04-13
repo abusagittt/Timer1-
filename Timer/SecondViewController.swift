@@ -24,22 +24,22 @@ class SecondViewController: UIViewController {
     }
 
     @objc func countTime() {
-        if time < 0 {
+        if time <= 0 {
             timer.invalidate()
             label.text = "Готово! ✅"
             return
         }
-        label.text = timeString(time: time)
         time -= 1
+        label.text = timeString(time: time)
     }
 
     @IBAction func startTimer(_ sender: Any) {
         if isTimerRunning { return }
         timer = Timer.scheduledTimer(timeInterval: 1,
-                                     target: self,
-                                     selector: #selector(countTime),
-                                     userInfo: nil,
-                                     repeats: true)
+                                    target: self,
+                                    selector: #selector(countTime),
+                                    userInfo: nil,
+                                    repeats: true)
         isTimerRunning = true
     }
 
@@ -51,7 +51,7 @@ class SecondViewController: UIViewController {
     @IBAction func restartTimer(_ sender: Any) {
         timer.invalidate()
         isTimerRunning = false
-        time = savedTime
+        time = savedTime          // ← сбрасываем до значения из DatePicker
         label.text = timeString(time: time)
     }
 
